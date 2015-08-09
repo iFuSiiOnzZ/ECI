@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:eci="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/id_copy_link" eci:showAsAction="always" android:title="@string/search_title" android:icon="@drawable/ic_link_variant"/>
+    <item android:id="@+id/id_open_brower" eci:showAsAction="always" android:title="@string/search_title" android:icon="@drawable/ic_firefox"/>
+    <item android:id="@+id/id_share_post" eci:showAsAction="always" android:title="@string/search_title" android:icon="@drawable/ic_share"/>
+</menu>

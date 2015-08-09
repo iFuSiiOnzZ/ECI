@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:padding="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Numero paginas precargadas"
+                android:layout_gravity="center_vertical"/>
+
+        <SeekBar
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/id_settings_numpages"
+                android:progress="5"
+                android:max="15"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:padding="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="Precargar imagenes"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"/>
+
+        <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_settings_preload" />
+    </LinearLayout>
+
+</LinearLayout>
