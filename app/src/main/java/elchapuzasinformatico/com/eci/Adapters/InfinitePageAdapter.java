@@ -1,15 +1,13 @@
 package elchapuzasinformatico.com.eci.Adapters;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v4.view.PagerAdapter;
-
 import android.content.Context;
 import android.os.AsyncTask;
-
-import android.widget.RelativeLayout;
-import android.view.ViewGroup;
+import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerRecycleView;
 import elchapuzasinformatico.com.eci.Eci.AsynkTask.GetNews;

@@ -1,19 +1,16 @@
 package elchapuzasinformatico.com.eci.Utilities;
 
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
-
-import android.graphics.PorterDuffXfermode;
-import android.graphics.PorterDuff;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 
-import java.net.HttpURLConnection;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**

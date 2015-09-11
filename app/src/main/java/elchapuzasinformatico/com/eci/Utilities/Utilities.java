@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 
 import java.math.BigInteger;
@@ -26,6 +27,12 @@ public class Utilities
     {
         int resourceId = l_Context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return resourceId > 0 ? l_Context.getResources().getDimensionPixelSize(resourceId) : 0;
+    }
+
+    public static int getNavigationBarHeight(Context context, int orientation)
+    {
+        int resourceId = context.getResources().getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_height_landscape", "dimen", "android");
+        return resourceId > 0 ? context.getResources().getDimensionPixelSize(resourceId) : 0;
     }
 
     /**

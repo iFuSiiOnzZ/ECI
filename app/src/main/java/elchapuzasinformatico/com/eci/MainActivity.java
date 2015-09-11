@@ -3,31 +3,30 @@ package elchapuzasinformatico.com.eci;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerRecycleView;
-import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerInterface;
-
-import elchapuzasinformatico.com.eci.Adapters.DrawerAdapter;
-import elchapuzasinformatico.com.eci.Eci.RecentNewsPage;
-import elchapuzasinformatico.com.eci.Eci.SettingsPage;
-import elchapuzasinformatico.com.eci.Threads.UncaughtException;
-import elchapuzasinformatico.com.eci.Utilities.Utilities;
-import elchapuzasinformatico.com.eci.Models.DrawerItem;
-import elchapuzasinformatico.com.eci.Eci.NewsPage;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import elchapuzasinformatico.com.eci.Adapters.DrawerAdapter;
+import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerInterface;
+import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerRecycleView;
+import elchapuzasinformatico.com.eci.Eci.NewsPage;
+import elchapuzasinformatico.com.eci.Eci.RecentNewsPage;
+import elchapuzasinformatico.com.eci.Eci.SettingsPage;
+import elchapuzasinformatico.com.eci.Models.DrawerItem;
+import elchapuzasinformatico.com.eci.Threads.UncaughtException;
+import elchapuzasinformatico.com.eci.Utilities.Utilities;
 
 /**
  * Created by AnDrEi AJ on 27/05/2015.
@@ -36,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements onClickListenerIn
 {
     DrawerLayout m_DrawerLayout = null;
     ActionBarDrawerToggle m_Toggle = null;
+
+    private long m_LastTimePressBack = System.currentTimeMillis();
+    private long m_TimeToExitBackPress = 2000;
 
     @Override protected void onCreate(Bundle savedInstanceState)
     {
@@ -82,7 +84,15 @@ public class MainActivity extends AppCompatActivity implements onClickListenerIn
 
     @Override public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        if (keyCode == KeyEvent.KEYCODE_BACK) finish();
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            if(m_LastTimePressBack + m_TimeToExitBackPress > System.currentTimeMillis()) finish();
+            else Toast.makeText(this, "Pulse otra vez para salir", Toast.LENGTH_SHORT).show();
+
+            m_LastTimePressBack = System.currentTimeMillis();
+            return true;
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 

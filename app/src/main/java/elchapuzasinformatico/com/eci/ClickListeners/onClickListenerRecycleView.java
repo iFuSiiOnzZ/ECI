@@ -1,8 +1,7 @@
 package elchapuzasinformatico.com.eci.ClickListeners;
 
-import android.support.v7.widget.RecyclerView;
 import android.content.Context;
-
+import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,6 +49,11 @@ public class onClickListenerRecycleView implements RecyclerView.OnItemTouchListe
      * @param e
      */
     @Override public void onTouchEvent(RecyclerView rv, MotionEvent e)
+    {
+
+    }
+
+    @Override public void onRequestDisallowInterceptTouchEvent(boolean b)
     {
 
     }

@@ -1,20 +1,19 @@
 package elchapuzasinformatico.com.eci.Adapters;
 
-import android.support.v7.widget.RecyclerView;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
-
+import android.graphics.BitmapFactory;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.view.ViewGroup;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import elchapuzasinformatico.com.eci.Holders.DrawerHolder;
-import elchapuzasinformatico.com.eci.Utilities.ImageUtils;
 import elchapuzasinformatico.com.eci.Models.DrawerItem;
 import elchapuzasinformatico.com.eci.R;
+import elchapuzasinformatico.com.eci.Utilities.ImageUtils;
 
 /**
  * Created by andrei on 8/7/15.

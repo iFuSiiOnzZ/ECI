@@ -1,8 +1,8 @@
 package elchapuzasinformatico.com.eci.Utilities.Network;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.content.Context;
 
 /**
  * Created by AnDrEi AJ on 24/05/2015.

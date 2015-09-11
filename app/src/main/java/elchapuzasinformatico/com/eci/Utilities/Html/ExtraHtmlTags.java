@@ -1,9 +1,9 @@
 package elchapuzasinformatico.com.eci.Utilities.Html;
 
-import android.text.style.LeadingMarginSpan;
-import android.text.style.BulletSpan;
 import android.text.Editable;
 import android.text.Html;
+import android.text.style.BulletSpan;
+import android.text.style.LeadingMarginSpan;
 
 import org.xml.sax.XMLReader;
 

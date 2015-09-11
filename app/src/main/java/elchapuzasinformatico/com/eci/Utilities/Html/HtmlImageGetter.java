@@ -1,20 +1,19 @@
 package elchapuzasinformatico.com.eci.Utilities.Html;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import java.io.InputStream;
-
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
-
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.text.Html.ImageGetter;
+import android.view.Display;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.view.Display;
+
+import java.io.InputStream;
 
 import elchapuzasinformatico.com.eci.Utilities.Network.DownloadUtilities;
 

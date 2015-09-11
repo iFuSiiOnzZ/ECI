@@ -1,40 +1,37 @@
 package elchapuzasinformatico.com.eci.Eci.AsynkTask;
 
-import android.app.ProgressDialog;
 import android.app.Activity;
-
-import android.text.method.LinkMovementMethod;
-import android.text.Html;
-
-import android.view.LayoutInflater;
-
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
-
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-
-import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.json.JSONException;
-
 import com.google.gson.Gson;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import elchapuzasinformatico.com.eci.R;
-import elchapuzasinformatico.com.eci.Utilities.Network.DownloadUtilities;
-import elchapuzasinformatico.com.eci.Utilities.Html.HtmlImageGetter;
-import elchapuzasinformatico.com.eci.Utilities.Html.ExtraHtmlTags;
 import elchapuzasinformatico.com.eci.Eci.Models.PostDetails;
-import elchapuzasinformatico.com.eci.Views.WebImageView;
 import elchapuzasinformatico.com.eci.Eci.Models.URLS;
+import elchapuzasinformatico.com.eci.Models.ICallBack;
+import elchapuzasinformatico.com.eci.R;
+import elchapuzasinformatico.com.eci.Utilities.Html.ExtraHtmlTags;
+import elchapuzasinformatico.com.eci.Utilities.Html.HtmlImageGetter;
+import elchapuzasinformatico.com.eci.Utilities.Network.DownloadUtilities;
+import elchapuzasinformatico.com.eci.Utilities.Utilities;
+import elchapuzasinformatico.com.eci.Views.WebImageView;
 
 /**
  * Created by AnDrEi AJ on 31/05/2015.
@@ -117,9 +114,8 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails>
         }
 
         // Se crear un TextView para poner la noticas.
-        LinearLayout l_LinearLayout = (LinearLayout) ((Activity) m_Context).findViewById(R.id.id_post_text);
-        TextView l_TextView = new TextView(m_Context);
-        l_TextView.setPadding(16, 0, 16, 0);
+        LinearLayout l_MainContainer = (LinearLayout) ((Activity) m_Context).findViewById(R.id.id_post_text);
+        l_MainContainer.setPadding(16, 16, 16, Utilities.getNavigationBarHeight(m_Context, Configuration.ORIENTATION_PORTRAIT));
 
         // Se busca todos los videos de youtube.
         ArrayList<String> l_Videos = new ArrayList<>();
@@ -133,39 +129,34 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails>
         }
 
         // Se pone el texto de la noticias.
-        l_TextView.setText(Html.fromHtml(l_Result.m_Content, new HtmlImageGetter(l_TextView, m_Context), new ExtraHtmlTags()));
-        l_TextView.setMovementMethod(LinkMovementMethod.getInstance());
-        l_LinearLayout.addView(l_TextView);
+        TextView l_NewsText = new TextView(m_Context);
+        l_NewsText.setText(Html.fromHtml(l_Result.m_Content, new HtmlImageGetter(l_NewsText, m_Context), new ExtraHtmlTags()));
+        l_NewsText.setMovementMethod(LinkMovementMethod.getInstance());
+        l_MainContainer.addView(l_NewsText);
 
-        // Se ponen los videos de youtube.
-        for(int i = 0; i < l_Videos.size(); i += 2)
+        // Se anaden los videos, si hay.
+        HorizontalScrollView l_VideoScrollContainer = new HorizontalScrollView(m_Context);
+        l_VideoScrollContainer.setHorizontalScrollBarEnabled(false);
+        l_VideoScrollContainer.setVerticalScrollBarEnabled(false);
+        l_VideoScrollContainer.setPadding(0, 0, 0, 32);
+        
+        LinearLayout l_VideoContainer = new LinearLayout(m_Context);
+        l_VideoContainer.setOrientation(LinearLayout.HORIZONTAL);
+
+        l_MainContainer.addView(l_VideoScrollContainer);
+        l_VideoScrollContainer.addView(l_VideoContainer);
+
+        for(int i = 0; i < l_Videos.size(); i++)
         {
-            LinearLayout l_LL = new LinearLayout(m_Context);
-            l_LL.setOrientation(LinearLayout.HORIZONTAL);
-
             WebImageView l_Image = new WebImageView(m_Context);
-            l_Image.setURL("http://img.youtube.com/vi/" + l_Videos.get(i + 0) + "/0.jpg");
+            l_Image.setURL("http://img.youtube.com/vi/" + l_Videos.get(i) + "/0.jpg");
 
-            l_Image.setTag(l_Videos.get(i + 0));
-            l_Image.setPadding(16, 0, 16, 16);
+            l_Image.setTag(l_Videos.get(i));
+            l_Image.setPadding(4, 0, 4, 0);
             l_Image.setOnClickListener((View.OnClickListener) m_Context);
             l_Image.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
 
-            l_LL.addView(l_Image);
-            if(i + 1 != l_Videos.size())
-            {
-                l_Image = new WebImageView(m_Context);
-                l_Image.setURL("http://img.youtube.com/vi/" + l_Videos.get(i + 1) + "/0.jpg");
-
-                l_Image.setTag(l_Videos.get(i + 1));
-                l_Image.setPadding(16, 0, 16, 16);
-                l_Image.setOnClickListener((View.OnClickListener) m_Context);
-                l_Image.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
-
-                l_LL.addView(l_Image);
-            }
-
-            l_LinearLayout.addView(l_LL);
+            l_VideoContainer.addView(l_Image);
         }
 
         // Se ponen los comentarios de los uaurios.
@@ -183,19 +174,10 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails>
             l_Author.setText(Html.fromHtml("<strong>" + l_Result.m_Comments.get(i).m_Author + "</strong>", new HtmlImageGetter(l_Comment, m_Context), null));
             l_Replay.setText(l_Result.m_Comments.get(i).m_ID + " : " +  l_Result.m_Comments.get(i).m_Parent);
 
-            l_LinearLayout.addView(l_CommentView);
+            l_MainContainer.addView(l_CommentView);
         }
 
         m_ProgressDialog.dismiss();
-        m_PostDetails = l_Result;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public PostDetails getPostDetails()
-    {
-        return m_PostDetails;
+        ((ICallBack) m_Context).CallBack(l_Result, 0);
     }
 }

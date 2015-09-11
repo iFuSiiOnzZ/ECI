@@ -2,24 +2,23 @@ package elchapuzasinformatico.com.eci.Eci.AsynkTask;
 
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerInterface;
-import elchapuzasinformatico.com.eci.Utilities.Network.DownloadUtilities;
 import elchapuzasinformatico.com.eci.Adapters.NewsAdapter;
-
+import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerInterface;
 import elchapuzasinformatico.com.eci.Eci.Models.NewsInfo;
 import elchapuzasinformatico.com.eci.Eci.Models.URLS;
 import elchapuzasinformatico.com.eci.NewsActivity;
+import elchapuzasinformatico.com.eci.Utilities.Network.DownloadUtilities;
 
 /**
  * Created by AnDrEi AJ on 31/05/2015.
@@ -90,6 +89,7 @@ public class GetNews extends AsyncTask<Integer, Void, Void> implements onClickLi
         if(m_Data == null || l_Position >= m_Data.size()) return;
 
         Intent l_ShowPost = new Intent(m_Context, NewsActivity.class);
+        l_ShowPost.putExtra("postTitle", m_Data.get(l_Position).m_Title);
         l_ShowPost.putExtra("postId", m_Data.get(l_Position).m_Id);
         m_Context.startActivity(l_ShowPost);
     }

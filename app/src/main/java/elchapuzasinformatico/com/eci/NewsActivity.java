@@ -2,34 +2,32 @@ package elchapuzasinformatico.com.eci;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Menu;
-
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.view.View;
 
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
 import elchapuzasinformatico.com.eci.Eci.AsynkTask.getNewsWithId;
+import elchapuzasinformatico.com.eci.Eci.Models.PostDetails;
+import elchapuzasinformatico.com.eci.Models.ICallBack;
 import elchapuzasinformatico.com.eci.Threads.UncaughtException;
 import elchapuzasinformatico.com.eci.Utilities.Utilities;
 
 /**
  * Created by AnDrEi AJ on 31/05/2015.
  */
-public class NewsActivity extends AppCompatActivity implements View.OnClickListener
+public class NewsActivity extends AppCompatActivity implements View.OnClickListener, ICallBack
 {
     /** */
-    private getNewsWithId m_PostPage = null;
+    private PostDetails m_NewsDetails = null;
 
     /**
      *
@@ -45,14 +43,14 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar l_ToolBar = (Toolbar) findViewById(R.id.toolbar);
         LinearLayout l_TextLayout = (LinearLayout) findViewById(R.id.id_post_text);
 
-        setSupportActionBar(l_ToolBar); getSupportActionBar().setTitle("");
+        setSupportActionBar(l_ToolBar); getSupportActionBar().setTitle(getIntent().getStringExtra("postTitle"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         l_ToolBar.setPadding(0, Utilities.getStatusBarHeight(this), 0, 0);
         l_TextLayout.setPadding(0, Utilities.getStatusBarHeight(this), 0, 0);
 
-        m_PostPage = new getNewsWithId(this, getIntent().getIntExtra("postId", -1));
-        m_PostPage.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        getNewsWithId l_PostPage = new getNewsWithId(this, getIntent().getIntExtra("postId", -1));
+        l_PostPage.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**
@@ -81,18 +79,18 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
 
         if(l_Item.getItemId() == R.id.id_copy_link)
         {
-            Utilities.copy2Clipboard("URL", m_PostPage.getPostDetails().m_Url, this);
+            Utilities.copy2Clipboard("", m_NewsDetails.m_Url, this);
             Toast.makeText(this, getString(R.string.toas_url2clipboard), Toast.LENGTH_SHORT).show();
         }
 
         if(l_Item.getItemId() == R.id.id_share_post)
         {
-            Utilities.shareVia("URL", m_PostPage.getPostDetails().m_Url, this);
+            Utilities.shareVia("", m_NewsDetails.m_Url, this);
         }
 
         if(l_Item.getItemId() == R.id.id_open_brower)
         {
-            Utilities.goToURL(m_PostPage.getPostDetails().m_Url, this);
+            Utilities.goToURL(m_NewsDetails.m_Url, this);
         }
 
         return super.onOptionsItemSelected(l_Item);
@@ -122,5 +120,10 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent videoIntent = YouTubeStandalonePlayer.createVideoIntent(this, "AIzaSyAE1S6bP0pGTktCcRw4Dk-r_AgeD92E798", l_YoutbeID, 0, true, false);
         try { startActivityForResult(videoIntent, 0); } catch(ActivityNotFoundException e) { e.printStackTrace(); }
+    }
+
+    @Override public void CallBack(Object l_Object, int l_ResultCode)
+    {
+        m_NewsDetails = (PostDetails) l_Object;
     }
 }

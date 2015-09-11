@@ -1,10 +1,8 @@
 package elchapuzasinformatico.com.eci.Views;
 
 import android.content.Context;
-import android.widget.TextView;
 import android.view.View;
-
-import elchapuzasinformatico.com.eci.R;
+import android.widget.TextView;
 
 /**
  * Created by AnDrEi AJ on 04/07/2015.

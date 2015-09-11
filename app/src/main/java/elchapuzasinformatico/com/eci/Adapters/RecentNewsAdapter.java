@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import elchapuzasinformatico.com.eci.Eci.Models.NewsInfo;
-import elchapuzasinformatico.com.eci.Holders.NewsHolder;
 import elchapuzasinformatico.com.eci.Holders.RecentsNewsHolder;
 import elchapuzasinformatico.com.eci.R;
 

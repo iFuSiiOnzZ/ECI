@@ -1,11 +1,11 @@
 package elchapuzasinformatico.com.eci.Holders;
 
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 import android.view.View;
+import android.widget.TextView;
 
-import elchapuzasinformatico.com.eci.Views.WebImageView;
 import elchapuzasinformatico.com.eci.R;
+import elchapuzasinformatico.com.eci.Views.WebImageView;
 
 /**
  * Created by AnDrEi AJ on 30/05/2015.

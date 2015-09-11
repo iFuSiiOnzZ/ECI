@@ -1,13 +1,12 @@
 package elchapuzasinformatico.com.eci.Adapters;
 
-import android.support.v7.widget.RecyclerView;
 import android.content.Context;
-
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.view.View;
-
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.util.List;
 
 import elchapuzasinformatico.com.eci.Eci.Models.NewsInfo;
