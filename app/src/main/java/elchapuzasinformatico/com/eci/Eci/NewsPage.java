@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import elchapuzasinformatico.com.eci.Adapters.InfinitePageAdapter;
+import elchapuzasinformatico.com.eci.Eci.SharedPref.SettingsPrefs;
 
 /**
  * Created by AnDrEi AJ on 10/07/2015.
@@ -18,7 +19,7 @@ public class NewsPage extends Fragment
     {
         ViewPager l_ViewPager = new ViewPager(getActivity());
 
-        l_ViewPager.setOffscreenPageLimit(5);
+        l_ViewPager.setOffscreenPageLimit(new SettingsPrefs(getActivity()).getPreloadNumPages());
         l_ViewPager.setAdapter(new InfinitePageAdapter(getActivity()));
 
         return l_ViewPager;

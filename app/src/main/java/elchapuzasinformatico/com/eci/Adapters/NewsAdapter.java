@@ -1,6 +1,7 @@
 package elchapuzasinformatico.com.eci.Adapters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import elchapuzasinformatico.com.eci.Eci.Models.NewsInfo;
+import elchapuzasinformatico.com.eci.Eci.SharedPref.SettingsPrefs;
 import elchapuzasinformatico.com.eci.Holders.NewsHolder;
 import elchapuzasinformatico.com.eci.R;
+import elchapuzasinformatico.com.eci.Threads.BitmapMemCache;
 
 /**
  * Created by AnDrEi AJ on 30/05/2015.

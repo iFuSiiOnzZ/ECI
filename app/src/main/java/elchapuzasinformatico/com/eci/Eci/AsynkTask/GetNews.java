@@ -17,7 +17,9 @@ import elchapuzasinformatico.com.eci.Adapters.NewsAdapter;
 import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerInterface;
 import elchapuzasinformatico.com.eci.Eci.Models.NewsInfo;
 import elchapuzasinformatico.com.eci.Eci.Models.URLS;
+import elchapuzasinformatico.com.eci.Eci.SharedPref.SettingsPrefs;
 import elchapuzasinformatico.com.eci.NewsActivity;
+import elchapuzasinformatico.com.eci.Threads.BitmapMemCache;
 import elchapuzasinformatico.com.eci.Utilities.Network.DownloadUtilities;
 
 /**
@@ -63,6 +65,7 @@ public class GetNews extends AsyncTask<Integer, Void, Void> implements onClickLi
             e.printStackTrace();
         }
 
+
         return null;
     }
 
@@ -73,6 +76,14 @@ public class GetNews extends AsyncTask<Integer, Void, Void> implements onClickLi
     @Override protected void onPostExecute(Void l_Result)
     {
         if(m_PostAdapter == null || m_Data == null) return;
+
+        if(new SettingsPrefs(m_Context).getPreloadImages())
+        {
+            for(int i = 0; i < m_Data.size(); i++)
+            {
+                new BitmapMemCache(m_Data.get(i).m_Thumbnail).execute();
+            }
+        }
 
         m_PostAdapter.setData(m_Data);
         m_PostAdapter.notifyDataSetChanged();
