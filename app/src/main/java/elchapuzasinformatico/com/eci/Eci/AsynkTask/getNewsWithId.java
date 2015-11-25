@@ -2,9 +2,11 @@ package elchapuzasinformatico.com.eci.Eci.AsynkTask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
+import android.os.Vibrator;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -36,7 +39,7 @@ import elchapuzasinformatico.com.eci.Views.WebImageView;
 /**
  * Created by AnDrEi AJ on 31/05/2015.
  */
-public class getNewsWithId extends AsyncTask<Void, Void, PostDetails>
+public class getNewsWithId extends AsyncTask<Void, Void, PostDetails> implements View.OnLongClickListener
 {
     private ProgressDialog m_ProgressDialog = null;
     private  PostDetails m_PostDetails = null;
@@ -163,13 +166,14 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails>
         for(int i = 0; i < l_Result.m_Comments.size(); ++i)
         {
             View l_CommentView = LayoutInflater.from(m_Context).inflate(R.layout.post_comment, null);
+            l_CommentView.setOnLongClickListener(this);
 
             TextView l_Comment = (TextView) l_CommentView.findViewById(R.id.id_comment_content);
-            TextView l_Author = (TextView) l_CommentView.findViewById(R.id.id_comment_author);
-            TextView l_Replay = (TextView) l_CommentView.findViewById(R.id.id_comment_replay);
+            TextView l_Author  = (TextView) l_CommentView.findViewById(R.id.id_comment_author);
+            TextView l_Replay  = (TextView) l_CommentView.findViewById(R.id.id_comment_replay);
 
             l_Comment.setText(Html.fromHtml(l_Result.m_Comments.get(i).m_Content, new HtmlImageGetter(l_Comment, m_Context), null));
-            l_Comment.setMovementMethod(LinkMovementMethod.getInstance());
+            //l_Comment.setMovementMethod(LinkMovementMethod.getInstance());
 
             l_Author.setText(Html.fromHtml("<strong>" + l_Result.m_Comments.get(i).m_Author + "</strong>", new HtmlImageGetter(l_Comment, m_Context), null));
             l_Replay.setText(l_Result.m_Comments.get(i).m_ID + " : " +  l_Result.m_Comments.get(i).m_Parent);
@@ -179,5 +183,19 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails>
 
         m_ProgressDialog.dismiss();
         ((ICallBack) m_Context).CallBack(l_Result, 0);
+    }
+
+    @Override public boolean onLongClick(View v)
+    {
+        TextView l_CView = (TextView) v.findViewById(R.id.id_comment_content);
+        TextView l_AView  = (TextView) v.findViewById(R.id.id_comment_author);
+
+        String l_Comment = l_AView.getText()  + "\n" + l_CView.getText();
+        ((Vibrator) m_Context.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(50);
+
+        Utilities.copy2Clipboard("Comentario echo por: " + l_AView.getText(), l_Comment, m_Context);
+        Toast.makeText(m_Context, "Comentario copiado en el portapapeles", Toast.LENGTH_SHORT).show();
+
+        return false;
     }
 }
