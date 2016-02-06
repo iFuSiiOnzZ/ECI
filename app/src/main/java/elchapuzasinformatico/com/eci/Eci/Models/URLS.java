@@ -39,8 +39,8 @@ public class URLS
      * @param l_PostId
      * @return
      */
-    public static String getPost(int l_PostId)
+    public static String getPost(int l_PostId, int l_PageNum)
     {
-        return BASE_URL + "?json=core.get_post&post_id=" + l_PostId + "&include=url,title,content,comments";
+        return BASE_URL + "?json=core.get_post&post_id=" + l_PostId + "&page=" + l_PageNum + "&include=url,title,content,comments";
     }
 }

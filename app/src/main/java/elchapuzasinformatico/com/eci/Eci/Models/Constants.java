@@ -15,8 +15,8 @@ public class Constants
     /** Cachear images */
     public static final boolean IMAGE_CACHE = true;
 
-    /** Pregargar imagesnes */
-    public static final boolean IMAGE_PRELOAD  = false;
+    /** Pregargar imagenes */
+    public static final boolean IMAGE_PRELOAD  = true;
 
     /** Para guardar cualquier cosa temporal */
     public static final String CACHE_PATH = Environment.getExternalStorageState() + ".eci" + File.separator;

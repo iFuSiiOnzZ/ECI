@@ -2,24 +2,31 @@ apply plugin: 'com.android.application'
 
 android
 {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion "22.0.1"
 
     defaultConfig
     {
         applicationId "elchapuzasinformatico.com.eci"
         minSdkVersion 19
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
 
     buildTypes
     {
         release
         {
-            minifyEnabled false
+            minifyEnabled true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug
+        {
+            debuggable true
+            minifyEnabled false
         }
     }
 }
@@ -28,8 +35,8 @@ dependencies
 {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:recyclerview-v7:22.2.1'
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:cardview-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:cardview-v7:23.1.0'
+    compile 'com.android.support:design:23.1.0'
 }

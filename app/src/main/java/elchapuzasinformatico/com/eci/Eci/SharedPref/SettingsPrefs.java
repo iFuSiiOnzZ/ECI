@@ -55,6 +55,6 @@ public class SettingsPrefs extends SPManager
      */
     public boolean getPreloadImages()
     {
-        return getBool(PRELOAD_IMAGES, false);
+        return getBool(PRELOAD_IMAGES, true);
     }
 }

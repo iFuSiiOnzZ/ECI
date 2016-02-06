@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +40,7 @@ import elchapuzasinformatico.com.eci.Views.WebImageView;
 /**
  * Created by AnDrEi AJ on 31/05/2015.
  */
-public class getNewsWithId extends AsyncTask<Void, Void, PostDetails> implements View.OnLongClickListener
+public class getNewsWithId extends AsyncTask<Void, Void, Vector<PostDetails>> implements View.OnLongClickListener
 {
     private ProgressDialog m_ProgressDialog = null;
     private  PostDetails m_PostDetails = null;
@@ -62,24 +63,35 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails> implements
      * @param params nada (no se usa).
      * @return estructura de datos con todos los detalles de la noticas.
      */
-    @Override protected PostDetails doInBackground(Void... params)
+    @Override protected  Vector<PostDetails> doInBackground(Void... params)
     {
         ((Activity) m_Context).runOnUiThread(new Runnable() {@Override public void run() {m_ProgressDialog.setMessage(m_Context.getString(R.string.common_downloading));}});
-        String l_JSonString = DownloadUtilities.getStringFromNetwork(URLS.getPost(m_PostId));
+        Vector<String> l_Post = new Vector<>();
+        int l_NumPage = 1;
 
-        Log.v("URL", URLS.getPost(m_PostId));
+        do
+        {
+            l_Post.add(DownloadUtilities.getStringFromNetwork(URLS.getPost(m_PostId, l_NumPage)));
+            l_NumPage++;
 
-        if(l_JSonString == null) return null;
-        PostDetails l_PostDetails = null;
+        } while(l_Post.get(l_Post.size() - 1).contains("Seguir leyendo"));
+
+        if(l_Post.size() == 0) return null;
+        Vector<PostDetails> l_PostDetails = new Vector<>();
 
         try
         {
             Gson l_Gson = new Gson();
-            JSONObject l_Root = new JSONObject(l_JSonString);
-            if(!l_Root.getString("status").equalsIgnoreCase("ok")) return null;
 
-            ((Activity) m_Context).runOnUiThread(new Runnable() {@Override public void run() {m_ProgressDialog.setMessage(m_Context.getString(R.string.common_processing));}});
-            l_PostDetails = l_Gson.fromJson(l_Root.getJSONObject("post").toString(), PostDetails.class);
+            for(int i = 0; i < l_Post.size(); i++)
+            {
+                JSONObject l_Root = new JSONObject(l_Post.get(i));
+                if(!l_Root.getString("status").equalsIgnoreCase("ok")) return null;
+
+                ((Activity) m_Context).runOnUiThread(new Runnable()
+                {@Override public void run() {m_ProgressDialog.setMessage(m_Context.getString(R.string.common_processing));}});
+                l_PostDetails.add(l_Gson.fromJson(l_Root.getJSONObject("post").toString(), PostDetails.class));
+            }
         }
         catch(JSONException e)
         {
@@ -108,7 +120,7 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails> implements
      * Pone toda la informacion en pantalla.
      * @param l_Result estructura de datos con todos los detalles de la noticas.
      */
-    protected void onPostExecute(PostDetails l_Result)
+    protected void onPostExecute( Vector<PostDetails> l_Result)
     {
         if(l_Result == null)
         {
@@ -122,18 +134,28 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails> implements
 
         // Se busca todos los videos de youtube.
         ArrayList<String> l_Videos = new ArrayList<>();
-        Pattern pattern = Pattern.compile("(?:youtube(?:-nocookie)?\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([a-zA-Z0-9_-]{11})");
-        Matcher matcher = pattern.matcher(l_Result.m_Content);
 
-        while (matcher.find())
+        for(int i = 0; i < l_Result.size(); i++)
         {
-            String vId = matcher.group(1);
-            if(!l_Videos.contains(vId)) l_Videos.add(vId);
+            Pattern pattern = Pattern.compile("(?:youtube(?:-nocookie)?\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([a-zA-Z0-9_-]{11})");
+            Matcher matcher = pattern.matcher(l_Result.get(i).m_Content);
+
+            while(matcher.find())
+            {
+                String vId = matcher.group(1);
+                if(!l_Videos.contains(vId)) l_Videos.add(vId);
+            }
+        }
+
+        StringBuilder l_StringBuilder = new StringBuilder();
+        for(int i = 0; i < l_Result.size(); i++)
+        {
+            l_StringBuilder.append(l_Result.get(i).m_Content);
         }
 
         // Se pone el texto de la noticias.
         TextView l_NewsText = new TextView(m_Context);
-        l_NewsText.setText(Html.fromHtml(l_Result.m_Content, new HtmlImageGetter(l_NewsText, m_Context), new ExtraHtmlTags()));
+        l_NewsText.setText(Html.fromHtml(l_StringBuilder.toString(), new HtmlImageGetter(l_NewsText, m_Context), new ExtraHtmlTags()));
         l_NewsText.setMovementMethod(LinkMovementMethod.getInstance());
         l_MainContainer.addView(l_NewsText);
 
@@ -163,7 +185,7 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails> implements
         }
 
         // Se ponen los comentarios de los uaurios.
-        for(int i = 0; i < l_Result.m_Comments.size(); ++i)
+        for(int i = 0; i < l_Result.get(0).m_Comments.size(); ++i)
         {
             View l_CommentView = LayoutInflater.from(m_Context).inflate(R.layout.post_comment, null);
             l_CommentView.setOnLongClickListener(this);
@@ -172,17 +194,17 @@ public class getNewsWithId extends AsyncTask<Void, Void, PostDetails> implements
             TextView l_Author  = (TextView) l_CommentView.findViewById(R.id.id_comment_author);
             TextView l_Replay  = (TextView) l_CommentView.findViewById(R.id.id_comment_replay);
 
-            l_Comment.setText(Html.fromHtml(l_Result.m_Comments.get(i).m_Content, new HtmlImageGetter(l_Comment, m_Context), null));
-            //l_Comment.setMovementMethod(LinkMovementMethod.getInstance());
+            l_Comment.setText(Html.fromHtml(l_Result.get(0).m_Comments.get(i).m_Content, new HtmlImageGetter(l_Comment, m_Context), null));
+            l_Comment.setMovementMethod(LinkMovementMethod.getInstance());
 
-            l_Author.setText(Html.fromHtml("<strong>" + l_Result.m_Comments.get(i).m_Author + "</strong>", new HtmlImageGetter(l_Comment, m_Context), null));
-            l_Replay.setText(l_Result.m_Comments.get(i).m_ID + " : " +  l_Result.m_Comments.get(i).m_Parent);
+            l_Author.setText(Html.fromHtml("<strong>" + l_Result.get(0).m_Comments.get(i).m_Author + "</strong>", new HtmlImageGetter(l_Comment, m_Context), null));
+            l_Replay.setText(l_Result.get(0).m_Comments.get(i).m_ID + " : " +  l_Result.get(0).m_Comments.get(i).m_Parent);
 
             l_MainContainer.addView(l_CommentView);
         }
 
         m_ProgressDialog.dismiss();
-        ((ICallBack) m_Context).CallBack(l_Result, 0);
+        ((ICallBack) m_Context).CallBack(l_Result.get(0), 0);
     }
 
     @Override public boolean onLongClick(View v)
