@@ -6,55 +6,37 @@ import elchapuzasinformatico.com.eci.SharedPref.SPManager;
 
 /**
  * Created by AnDrEi AJ on 15/09/2015.
+ * Modificado: 10/06/2016 20:28     Quitado los comentarios
+ *                                  Las funciones empiezan por mayuscula
+ *                                  Quitado el prefijo de las variables locales
  */
 public class SettingsPrefs extends SPManager
 {
     private static String PRELOAD_NUM_PAGES = "preload_num_pages";
     private static String PRELOAD_IMAGES    = "preload_images";
 
-    /**
-     * Constructor
-     *
-     * @param context
-     */
-    public SettingsPrefs(Context context)
+    public SettingsPrefs(Context Context)
     {
-        super(context);
+        super(Context);
     }
 
-    /**
-     *
-     * @param l_NumPages
-     */
-    public void setPreloadNumPages(int l_NumPages)
+    public void SetPreloadNumPages(int NumPages)
     {
-        putInt(PRELOAD_NUM_PAGES, l_NumPages);
+        PutInt(PRELOAD_NUM_PAGES, NumPages);
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getPreloadNumPages()
+    public int GetPreloadNumPages()
     {
-        return getInt(PRELOAD_NUM_PAGES, 5);
+        return GetInt(PRELOAD_NUM_PAGES, 5);
     }
 
-    /**
-     *
-     * @param l_Preload
-     */
-    public void setPreloadImages(boolean l_Preload)
+    public void SetPreloadImages(boolean Preload)
     {
-        putBool(PRELOAD_IMAGES, l_Preload);
+        PutBool(PRELOAD_IMAGES, Preload);
     }
 
-    /**
-     *
-     * @return
-     */
-    public boolean getPreloadImages()
+    public boolean GetPreloadImages()
     {
-        return getBool(PRELOAD_IMAGES, true);
+        return GetBool(PRELOAD_IMAGES, true);
     }
 }

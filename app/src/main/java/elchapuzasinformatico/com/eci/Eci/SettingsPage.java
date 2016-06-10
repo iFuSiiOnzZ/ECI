@@ -2,7 +2,6 @@ package elchapuzasinformatico.com.eci.Eci;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +24,15 @@ public class SettingsPage extends Fragment implements SeekBar.OnSeekBarChangeLis
     {
         m_View = inflater.inflate(R.layout.settings, container, false);
 
-        ((TextView) m_View.findViewById(R.id.id_seek_value)).setText(String.valueOf(new SettingsPrefs(getActivity()).getPreloadNumPages()));
+        ((TextView) m_View.findViewById(R.id.id_seek_value)).setText(String.valueOf(new SettingsPrefs(getActivity()).GetPreloadNumPages()));
         SeekBar l_PagesPreload = ((SeekBar) m_View.findViewById(R.id.id_pages_preload));
 
-        l_PagesPreload.setProgress(new SettingsPrefs(getActivity()).getPreloadNumPages());
+        l_PagesPreload.setProgress(new SettingsPrefs(getActivity()).GetPreloadNumPages());
         l_PagesPreload.setOnSeekBarChangeListener(this);
         l_PagesPreload.setMax(15);
 
         Switch l_ImagePreload = ((Switch) m_View.findViewById(R.id.id_images_preload));
-        l_ImagePreload.setChecked(new SettingsPrefs(getActivity()).getPreloadImages());
+        l_ImagePreload.setChecked(new SettingsPrefs(getActivity()).GetPreloadImages());
         l_ImagePreload.setOnCheckedChangeListener(this);
 
         return m_View;
@@ -42,7 +41,7 @@ public class SettingsPage extends Fragment implements SeekBar.OnSeekBarChangeLis
     @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
     {
         ((TextView) m_View.findViewById(R.id.id_seek_value)).setText(String.valueOf(progress));
-        new SettingsPrefs(getActivity()).setPreloadNumPages(progress);
+        new SettingsPrefs(getActivity()).SetPreloadNumPages(progress);
     }
 
     @Override public void onStartTrackingTouch(SeekBar seekBar)
@@ -57,6 +56,6 @@ public class SettingsPage extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
-        new SettingsPrefs(getActivity()).setPreloadImages(isChecked);
+        new SettingsPrefs(getActivity()).SetPreloadImages(isChecked);
     }
 }

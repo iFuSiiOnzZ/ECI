@@ -5,25 +5,26 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-import elchapuzasinformatico.com.eci.Adapters.NewsAdapter;
 import elchapuzasinformatico.com.eci.ClickListeners.onClickListenerInterface;
+import elchapuzasinformatico.com.eci.Utilities.Network.DownloadUtilities;
+import elchapuzasinformatico.com.eci.Eci.SharedPref.SettingsPrefs;
+import elchapuzasinformatico.com.eci.Threads.BitmapMemCache;
+import elchapuzasinformatico.com.eci.Adapters.NewsAdapter;
 import elchapuzasinformatico.com.eci.Eci.Models.NewsInfo;
 import elchapuzasinformatico.com.eci.Eci.Models.URLS;
-import elchapuzasinformatico.com.eci.Eci.SharedPref.SettingsPrefs;
 import elchapuzasinformatico.com.eci.NewsActivity;
-import elchapuzasinformatico.com.eci.Threads.BitmapMemCache;
-import elchapuzasinformatico.com.eci.Utilities.Network.DownloadUtilities;
 
 /**
  * Created by AnDrEi AJ on 31/05/2015.
+ * Modificado: 10/06/2016 20:28     Quitado los comentarios
+ *                                  Quitado el prefijo de las variables locales
  */
 public class GetNews extends AsyncTask<Integer, Void, Void> implements onClickListenerInterface
 {
@@ -31,31 +32,21 @@ public class GetNews extends AsyncTask<Integer, Void, Void> implements onClickLi
     private NewsAdapter m_PostAdapter = null;
     private Context m_Context = null;
 
-    /**
-     * Constructor.
-     * @param l_PostAdapter el adaptador que genera la vista de las noticias.
-     * @param l_Context contexto donde se ejecuta.
-     */
-    public GetNews(NewsAdapter l_PostAdapter, Context l_Context)
+    public GetNews(NewsAdapter PostAdapter, Context Context)
     {
-        m_PostAdapter = l_PostAdapter;
-        m_Context = l_Context;
+        m_PostAdapter = PostAdapter;
+        m_Context = Context;
     }
 
-    /**
-     * Carga las noticias de una pagina dada de forma asincrona.
-     * @param l_PageNumber numero de pagina.
-     * @return no devuelve nada
-     */
-    @Override protected Void doInBackground(Integer... l_PageNumber)
+    @Override protected Void doInBackground(Integer... PageNumber)
     {
-        String l_JSonString = DownloadUtilities.getStringFromNetwork(URLS.getPostFromPage(l_PageNumber[0]));
-        if(l_JSonString == null) return null;
+        String JSonString = DownloadUtilities.getStringFromNetwork(URLS.getPostFromPage(PageNumber[0]));
+        if(JSonString == null) return null;
 
         try
         {
             Gson l_Gson = new Gson();
-            JSONObject l_Root = new JSONObject(l_JSonString);
+            JSONObject l_Root = new JSONObject(JSonString);
 
             if(!l_Root.getString("status").equalsIgnoreCase("ok")) return null;
             m_Data = l_Gson.fromJson(l_Root.getJSONArray("posts").toString(), new TypeToken<ArrayList<NewsInfo>>(){}.getType());
@@ -65,19 +56,14 @@ public class GetNews extends AsyncTask<Integer, Void, Void> implements onClickLi
             e.printStackTrace();
         }
 
-
         return null;
     }
 
-    /**
-     * Avista al adaptador de que tiene nuevos datos.
-     * @param l_Result nada, no se usa.
-     */
-    @Override protected void onPostExecute(Void l_Result)
+    @Override protected void onPostExecute(Void Result)
     {
         if(m_PostAdapter == null || m_Data == null) return;
 
-        if(new SettingsPrefs(m_Context).getPreloadImages())
+        if(new SettingsPrefs(m_Context).GetPreloadImages())
         {
             for(int i = 0; i < m_Data.size(); i++)
             {
@@ -89,29 +75,18 @@ public class GetNews extends AsyncTask<Integer, Void, Void> implements onClickLi
         m_PostAdapter.notifyDataSetChanged();
     }
 
-    /**
-     * Cuando un elemento ha sido pulsado.
-     *
-     * @param l_View vista que se ha pulsado.
-     * @param l_Position posicion que ocupa en lista de vistas.
-     */
-    @Override public void onItemClick(View l_View, int l_Position)
+    @Override public void onItemClick(View View, int Position)
     {
-        if(m_Data == null || l_Position >= m_Data.size()) return;
+        if(m_Data == null || Position >= m_Data.size()) return;
+        Intent ShowPost = new Intent(m_Context, NewsActivity.class);
 
-        Intent l_ShowPost = new Intent(m_Context, NewsActivity.class);
-        l_ShowPost.putExtra("postTitle", m_Data.get(l_Position).m_Title);
-        l_ShowPost.putExtra("postId", m_Data.get(l_Position).m_Id);
-        m_Context.startActivity(l_ShowPost);
+        ShowPost.putExtra("postTitle", m_Data.get(Position).m_Title);
+        ShowPost.putExtra("postId", m_Data.get(Position).m_Id);
+
+        m_Context.startActivity(ShowPost);
     }
 
-    /**
-     * Cuando un elemento es mantido pulsado.
-     *
-     * @param l_View vista que ha pulsado.
-     * @param l_Position posicion que ocupa en la lista de vistas.
-     */
-    @Override public void onItemLongClick(View l_View, int l_Position)
+    @Override public void onItemLongClick(View View, int Position)
     {
 
     }
