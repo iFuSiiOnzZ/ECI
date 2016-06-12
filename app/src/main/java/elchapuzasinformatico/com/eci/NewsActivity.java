@@ -19,7 +19,7 @@ import android.view.View;
 
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
-import elchapuzasinformatico.com.eci.Eci.AsynkTask.getNewsWithId;
+import elchapuzasinformatico.com.eci.Eci.AsynkTask.GetNewsWithId;
 import elchapuzasinformatico.com.eci.Threads.UncaughtException;
 import elchapuzasinformatico.com.eci.Eci.Models.PostDetails;
 import elchapuzasinformatico.com.eci.Utilities.Utilities;
@@ -51,7 +51,7 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
         ToolBar.setPadding(0, Utilities.getStatusBarHeight(this), 0, 0);
         TextLayout.setPadding(0, Utilities.getStatusBarHeight(this), 0, 0);
 
-        getNewsWithId PostPage = new getNewsWithId(this, getIntent().getIntExtra("postId", -1));
+        GetNewsWithId PostPage = new GetNewsWithId(this, getIntent().getIntExtra("postId", -1));
         PostPage.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

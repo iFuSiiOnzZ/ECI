@@ -1,10 +1,17 @@
 package elchapuzasinformatico.com.eci;
 
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 
+import android.view.ViewGroup;
+import android.os.Bundle;
+
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.view.ViewPager;
+
+import android.widget.EditText;
 import android.widget.Toast;
 
 import android.view.KeyEvent;
@@ -20,16 +27,18 @@ import elchapuzasinformatico.com.eci.Utilities.Utilities;
  * Created by AnDrEi AJ on 27/05/2015.
  * Modificado: 10/06/2016 20:28     Quitado los comentarios
  *                                  Quitado el prefijo de las variables locales
+ *
+ *             11/06/2016 11:15     Dialago para la busqueda
  */
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements DialogInterface.OnClickListener
 {
     private long m_LastTimePressBack = System.currentTimeMillis();
     private long m_TimeToExitBackPress = 2000;
+    private EditText m_SearchEditText = null;
 
     @Override protected void onCreate(Bundle SavedInstanceState)
     {
         super.onCreate(SavedInstanceState);
-
 
         Thread.setDefaultUncaughtExceptionHandler(new UncaughtException(this));
         setContentView(R.layout.main_activity);
@@ -48,6 +57,9 @@ public class MainActivity extends AppCompatActivity
         ViewPager.setOffscreenPageLimit(new SettingsPrefs(this).GetPreloadNumPages());
         ViewPager.addOnPageChangeListener(InfAdapter);
         ViewPager.setAdapter(InfAdapter);
+
+        m_SearchEditText = new EditText(this);
+        m_SearchEditText.setId(0);
     }
 
     @Override protected void onPostCreate(Bundle SavedInstanceState)
@@ -69,9 +81,38 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        if (MenuItem.getItemId() == R.id.id_refresh)
+        {
+            Toolbar ToolBar = (Toolbar) findViewById(R.id.toolbar);
+            ViewPager ViewPager = (ViewPager) findViewById(R.id.id_news_info);
+
+            ToolBar.setPadding(0, Utilities.getStatusBarHeight(this), 0, 0);
+            setSupportActionBar(ToolBar); getSupportActionBar().setTitle("");
+            InfinitePageAdapter InfAdapter = new InfinitePageAdapter(this, getSupportActionBar());
+
+            getSupportActionBar().setTitle("Noticias - 1");
+            getSupportActionBar().setHomeButtonEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+            ViewPager.setOffscreenPageLimit(new SettingsPrefs(this).GetPreloadNumPages());
+            ViewPager.addOnPageChangeListener(InfAdapter);
+            ViewPager.setAdapter(InfAdapter);
+        }
+
         if (MenuItem.getItemId() == R.id.id_search)
         {
-            Toast.makeText(this, "Mañana tampoco, pasado mañana (002)", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder AlBuilder = new AlertDialog.Builder(this);
+            AlBuilder.setView(m_SearchEditText);
+
+            AlBuilder.setTitle("Buscar");
+            AlBuilder.setMessage("");
+
+            AlBuilder.setPositiveButton("Buscar", this);
+            AlBuilder.setNegativeButton("Cancelar", this);
+
+            AlBuilder.create().show();
+            Utilities.OpenKeyboard(this);
+
             return true;
         }
 
@@ -90,5 +131,17 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onKeyDown(KeyCode, Event);
+    }
+
+    @Override public void onClick(DialogInterface Dialog, int Which)
+    {
+        Utilities.CloseKeyboard(this);
+        ((ViewGroup)m_SearchEditText.getParent()).removeView(m_SearchEditText);
+
+        if(Which != -1) return;
+        Intent SearchIntent = new Intent(this, SearchActivity.class);
+
+        SearchIntent.putExtra("SEARCH_QUERY", m_SearchEditText.getText().toString());
+        startActivity(SearchIntent);
     }
 }

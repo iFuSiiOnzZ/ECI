@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:eci="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/id_refresh" eci:showAsAction="always" android:title="@string/search_title" android:icon="@drawable/ic_refresh"/>
     <item android:id="@+id/id_settings" eci:showAsAction="always" android:title="@string/search_title" android:icon="@drawable/ic_icon_settings"/>
     <item android:id="@+id/id_search" eci:showAsAction="always" android:title="@string/search_title" android:icon="@drawable/abc_ic_search_api_mtrl_alpha" />
 </menu>

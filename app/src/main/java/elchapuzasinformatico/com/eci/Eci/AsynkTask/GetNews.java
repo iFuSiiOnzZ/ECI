@@ -40,7 +40,7 @@ public class GetNews extends AsyncTask<Integer, Void, Void> implements onClickLi
 
     @Override protected Void doInBackground(Integer... PageNumber)
     {
-        String JSonString = DownloadUtilities.getStringFromNetwork(URLS.getPostFromPage(PageNumber[0]));
+        String JSonString = DownloadUtilities.getStringFromNetwork(URLS.GetPostFromPage(PageNumber[0]));
         if(JSonString == null) return null;
 
         try

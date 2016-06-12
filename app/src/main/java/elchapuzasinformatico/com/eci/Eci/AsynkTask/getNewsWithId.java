@@ -2,14 +2,12 @@ package elchapuzasinformatico.com.eci.Eci.AsynkTask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
@@ -40,7 +38,7 @@ import elchapuzasinformatico.com.eci.Views.WebImageView;
 /**
  * Created by AnDrEi AJ on 31/05/2015.
  */
-public class getNewsWithId extends AsyncTask<Void, Void, Vector<PostDetails>> implements View.OnLongClickListener
+public class GetNewsWithId extends AsyncTask<Void, Void, Vector<PostDetails>> implements View.OnLongClickListener
 {
     private ProgressDialog m_ProgressDialog = null;
     private  PostDetails m_PostDetails = null;
@@ -52,7 +50,7 @@ public class getNewsWithId extends AsyncTask<Void, Void, Vector<PostDetails>> im
      * @param l_Context contexto de ejecucion.
      * @param l_PostId id del post a mostrar.
      */
-    public getNewsWithId(Context l_Context, int l_PostId)
+    public GetNewsWithId(Context l_Context, int l_PostId)
     {
         m_Context = l_Context;
         m_PostId = l_PostId;
@@ -71,7 +69,7 @@ public class getNewsWithId extends AsyncTask<Void, Void, Vector<PostDetails>> im
 
         do
         {
-            l_Post.add(DownloadUtilities.getStringFromNetwork(URLS.getPost(m_PostId, l_NumPage)));
+            l_Post.add(DownloadUtilities.getStringFromNetwork(URLS.GetPost(m_PostId, l_NumPage)));
             l_NumPage++;
 
         } while(l_Post.get(l_Post.size() - 1).contains("Seguir leyendo"));

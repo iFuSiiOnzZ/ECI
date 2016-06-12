@@ -1,12 +1,14 @@
 package elchapuzasinformatico.com.eci.Threads;
 
 import android.app.Activity;
+import android.util.Log;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 /**
  * Created by AnDrEi AJ on 27/07/2015.
+ * Modificado: 11/06/2016 23:10     Comentado el codigo de captura de excepciones
  */
 public class UncaughtException implements Thread.UncaughtExceptionHandler
 {
@@ -19,35 +21,36 @@ public class UncaughtException implements Thread.UncaughtExceptionHandler
         m_Handle = Thread.getDefaultUncaughtExceptionHandler();
     }
 
-    @Override public void uncaughtException(Thread l_Thread, Throwable l_Exception)
+    @Override public void uncaughtException(Thread Thread, Throwable Exception)
     {
-        StackTraceElement l_Exceptions[] = l_Exception.getStackTrace();
-        String l_ThreadInfo = l_Thread.toString();
-        String l_Error = l_Exception.toString() + "\n";
+        /*StackTraceElement Exceptions[] = Exception.getStackTrace();
+        String ThreadInfo = Thread.toString();
+        String Error = Exception.toString() + "\n";
 
-        l_Error += "----------------[STACK TRACE]----------------\n" + l_ThreadInfo + "\n";
-        for(int i = 0; i < l_Exceptions.length; i++) l_Error += l_Exceptions[i].toString() + "\n";
-        l_Error += "---------------------------------------------\n\n";
+        Error += "----------------[STACK TRACE]----------------\n" + ThreadInfo + "\n";
+        for(int i = 0; i < Exceptions.length; i++) Error += Exceptions[i].toString() + "\n";
+        Error += "---------------------------------------------\n\n";
 
-        l_Error += "-------------------[CAUSE]-------------------\n";
-        Throwable l_Cause = l_Exception.getCause();
+        Error += "-------------------[CAUSE]-------------------\n";
+        Throwable l_Cause = Exception.getCause();
         if(l_Cause != null)
         {
-            l_Exceptions = l_Cause.getStackTrace();
-            for(int i = 0; i < l_Exceptions.length; i++) l_Error += l_Exceptions[i].toString() + "\n";
+            Exceptions = l_Cause.getStackTrace();
+            for(int i = 0; i < Exceptions.length; i++) Error += Exceptions[i].toString() + "\n";
         }
-        l_Error += "---------------------------------------------\n\n\n\n\n";
+
+        Error += "---------------------------------------------\n\n\n\n\n";
 
         try
         {
-            FileWriter l_ErrorFile = new FileWriter("/sdcard/ECIExceptions.txt", true);
-            l_ErrorFile.write(l_Error); l_ErrorFile.flush(); l_ErrorFile.close();
+            FileWriter ErrorFile = new FileWriter("/sdcard/ECIExceptions.txt", true);
+            ErrorFile.write(Error); ErrorFile.flush(); ErrorFile.close();
         }
         catch(IOException e)
         {
             e.printStackTrace();
-        }
+        }*/
 
-        m_Handle.uncaughtException(l_Thread, l_Exception);
+        m_Handle.uncaughtException(Thread, Exception);
     }
 }

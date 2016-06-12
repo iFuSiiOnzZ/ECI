@@ -35,17 +35,17 @@ public class InfinitePageAdapter extends PagerAdapter implements ViewPager.OnPag
 
     @Override public Object instantiateItem(ViewGroup Container, int Position)
     {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(m_Context);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager LayoutManager = new LinearLayoutManager(m_Context);
+        LayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         RecyclerView RecyclerView = new RecyclerView(m_Context);
-        NewsAdapter l_PostAdapter = new NewsAdapter(null, R.layout.news_card, m_Context);
+        NewsAdapter PostAdapter = new NewsAdapter(null, R.layout.news_card, m_Context);
         RecyclerView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        RecyclerView.setLayoutManager(layoutManager);
-        RecyclerView.setAdapter(l_PostAdapter);
+        RecyclerView.setLayoutManager(LayoutManager);
+        RecyclerView.setAdapter(PostAdapter);
 
-        GetNews News = new GetNews(l_PostAdapter, m_Context);
+        GetNews News = new GetNews(PostAdapter, m_Context);
         News.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Position + 1);
 
         RecyclerView.addOnItemTouchListener(new onClickListenerRecycleView(m_Context, News));
