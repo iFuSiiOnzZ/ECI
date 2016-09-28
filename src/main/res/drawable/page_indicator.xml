@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:innerRadius="0dp" android:shape="oval" android:useLevel="false">
+    <stroke android:width="25dp" android:color="@color/drawable_page_indicator" />
+    <solid android:color="@android:color/transparent" />
+</shape>

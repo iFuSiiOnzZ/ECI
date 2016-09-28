@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <local.host.eci.src.Interface.View.ScrollView
+        android:background="@android:color/white"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/lyt_scroll"
+        >
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/lyt_header"
+                android:layout_height="125pt"
+                android:layout_width="match_parent">
+
+                <local.host.eci.src.Interface.View.WebImageView
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:id="@+id/lyt_img_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:padding="10dp"
+                    android:textSize="16sp"
+                    android:id="@+id/post_title"
+                    android:background="#60000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/lyt_img_header"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@android:color/white"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/lyt_news_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white">
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </local.host.eci.src.Interface.View.ScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/ToolBarStyle"
+        android:id="@+id/lyt_toolbar"/>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="#D0000000"
+        android:id="@+id/ytb_frame"
+        android:visibility="gone"
+        android:clickable="true">
+
+        <fragment
+            android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/ytb_fragment"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
