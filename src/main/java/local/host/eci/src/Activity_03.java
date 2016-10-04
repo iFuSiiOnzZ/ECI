@@ -3,6 +3,7 @@ package local.host.eci.src;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -18,7 +19,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.google.android.youtube.player.YouTubePlayerFragment;
-import android.content.res.Configuration;
 
 import local.host.eci.src.Interface.Listener.OnScrollViewListener;
 import local.host.eci.src.Interface.AsyncTask.GetNews;
@@ -117,10 +117,10 @@ public class Activity_03 extends AppCompatActivity implements OnScrollViewListen
         int HeaderHeight = ImageHeight - getSupportActionBar().getHeight();
 
         float Ratio = (float) Math.min(Math.max(t, 0), HeaderHeight) / HeaderHeight;
-        Ratio *= (END_ALPHA - START_ALPHA); Ratio += START_ALPHA / END_ALPHA;
+        int Alpha = (int) (((1.0f - Ratio) * START_ALPHA + Ratio * END_ALPHA) * 255);
 
         Toolbar ToolBar = (Toolbar) findViewById(R.id.lyt_toolbar);
-        ToolBar.getBackground().setAlpha((int)(Ratio * 255));
+        ToolBar.getBackground().setAlpha(Alpha);
 
         RelativeLayout.LayoutParams LayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         LayoutParams.setMargins(0, (int) (ImageHeight - Ratio * ImageHeight * 0.2f), 0, 0);
@@ -137,9 +137,6 @@ public class Activity_03 extends AppCompatActivity implements OnScrollViewListen
             String YtbID = (String) v.getTag();
             m_YoutubePlayer.Play(YtbID);
         }
-
-        /*Intent videoIntent = YouTubeStandalonePlayer.createVideoIntent(this, "AIzaSyAE1S6bP0pGTktCcRw4Dk-r_AgeD92E798", YoutbeID, 0, true, false);
-        try { startActivityForResult(videoIntent, 0); } catch(ActivityNotFoundException e) { e.printStackTrace(); }*/
     }
 
     @Override  public void onBackPressed()
@@ -150,23 +147,13 @@ public class Activity_03 extends AppCompatActivity implements OnScrollViewListen
 
     @Override public boolean onKeyDown(int KeyCode, KeyEvent Event)
     {
-        if (KeyCode == KeyEvent.KEYCODE_BACK && m_YoutubePlayer != null && m_YoutubePlayer.isPlaying())
+        if (KeyCode == KeyEvent.KEYCODE_BACK && findViewById(R.id.ytb_frame).getVisibility() == View.VISIBLE)
         {
             findViewById(R.id.ytb_frame).setVisibility(View.GONE);
             m_YoutubePlayer.Pause();
             return true;
         }
-        else if (KeyCode == KeyEvent.KEYCODE_BACK && m_YoutubePlayer != null && m_YoutubePlayer.isFullScreen())
-        {
-            m_YoutubePlayer.SetFullScreen(false);
-            return true;
-        }
 
         return super.onKeyDown(KeyCode, Event);
-    }
-
-    @Override public void onConfigurationChanged(Configuration newConfig)
-    {
-        super.onConfigurationChanged(newConfig);
     }
 }

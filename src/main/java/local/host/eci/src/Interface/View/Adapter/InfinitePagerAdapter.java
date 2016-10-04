@@ -1,14 +1,14 @@
 package local.host.eci.src.Interface.View.Adapter;
 
+import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import android.support.v4.view.PagerAdapter;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.view.View;
 
-import android.os.AsyncTask;
 import android.content.Context;
 
 import local.host.eci.src.Interface.AsyncTask.GetExcerpt;

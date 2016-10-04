@@ -1,7 +1,7 @@
 package local.host.eci.src.Interface.AsyncTask;
 
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.graphics.Bitmap;
 
 import android.content.Context;
 import android.os.AsyncTask;

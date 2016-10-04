@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,7 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import local.host.eci.src.Interface.View.WebImageView;
-import local.host.eci.src.Interface.View.WrapContentHorizontalScrollView;
+import local.host.eci.src.Interface.View.WrapHorizontalScrollView;
 import local.host.eci.src.Utils.HTML.HTMLImageGetter;
 import local.host.eci.src.Utils.HTML.ExtraHTMLTags;
 
@@ -122,7 +121,7 @@ public class GetNews extends AsyncTask<Integer, Void, Vector<NewsDetails>>
         PostText.setMovementMethod(LinkMovementMethod.getInstance());
 
         ////
-        WrapContentHorizontalScrollView YtbVideoScrollContainer = new WrapContentHorizontalScrollView(m_Context);
+        WrapHorizontalScrollView YtbVideoScrollContainer = new WrapHorizontalScrollView(m_Context);
         YtbVideoScrollContainer.setHorizontalScrollBarEnabled(false);
         YtbVideoScrollContainer.setVerticalScrollBarEnabled(false);
 

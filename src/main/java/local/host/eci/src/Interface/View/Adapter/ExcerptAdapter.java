@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import android.text.Html;
 
@@ -18,7 +19,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
 
-public class ExcerptAdapter extends RecyclerView.Adapter<ExcerptHolder> implements OnClickListenerInterface
+public class ExcerptAdapter extends RecyclerView.Adapter<ExcerptHolder> implements OnClickListenerInterface, Serializable
 {
     ArrayList<NewsExcerpt> m_NewsExcerpt = null;
     Context m_Context = null;

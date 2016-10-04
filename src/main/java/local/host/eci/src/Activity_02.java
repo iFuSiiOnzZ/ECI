@@ -4,6 +4,7 @@ import local.host.eci.src.Interface.View.Adapter.InfinitePagerAdapter;
 import local.host.eci.src.Utils.Utils;
 import local.host.eci.R;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.app.AlertDialog;
@@ -55,11 +56,6 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         new Thread(this).start();
     }
 
-    @Override protected void onDestroy()
-    {
-        super.onDestroy();
-    }
-
     @Override public void onClick(View v)
     {
         if(v.getId() == R.id.lyt_page_indicator)
@@ -84,6 +80,14 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
             if(i < 0) i = 0;
 
             ((ViewPager) findViewById(R.id.lyt_news_pager)).setCurrentItem(i, true);
+        }
+        else
+        {
+            Intent SearchIntent = new Intent(this, Activity_04.class);
+            String QuerySearch = query.trim();
+
+            SearchIntent.putExtra("SEARCH_QUERY", QuerySearch);
+            startActivity(SearchIntent);
         }
 
         return false;
@@ -187,14 +191,17 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(this);
 
 
-        String Message = "<strong>Versio</strong>: 0.2.5 (beta)<br />";
+        String Message = "<strong>Versión</strong>: 0.2.6 (beta)<br />";
         Message += "Andrei Jianu<br /><br />";
 
         Message += "<strong>Disclaimer</strong>: Esta es una aplicación no oficial desarrollada por un lector de la web del <a href=\"https://elchapuzasinformatico.com\">chapuzasinformatico</a>. ";
         Message += "No existe ninguna afiliación con <em>elchapuzasinformatico.com</em>.<br /> <br />";
 
-        Message += "<strong>Código fuente</strong><br />";
-        Message += "<a href=\"https://github.com/iFuSiiOnzZ/ECI\">https://github.com/iFuSiiOnzZ/ECI</a>";
+        Message += "<strong>Código fuente</strong>:<br />";
+        Message += "<a href=\"https://github.com/iFuSiiOnzZ/ECI\">https://github.com/iFuSiiOnzZ/ECI</a><br /><br />";
+
+        Message += "<strong>Haz tu contribución</strong> (PayPal):<br />";
+        Message += "andreijianu@hotmail.com";
 
         TextView TextAbout = new TextView(this);
         TextAbout.setText(Html.fromHtml(Message));
@@ -229,20 +236,27 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;<strong>z</strong>: Corrección de fallos<br />";
         Message += "<br />";
 
-        Message += "<strong>0.2.5</strong><br />";
+        Message += "<strong>0.2.6</strong> (beta) <br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Implementada la busqueda<br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Quitado código redundante<br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Algunas correcciones ortográficas<br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Mejoras en el control de la transparencia de barra de tareas<br />";
+        Message += "<br />";
+
+        Message += "<strong>0.2.5</strong> (beta) <br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Mejoras en la leyenda<br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Algunas correcciones ortográficas<br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Mejorada la visualización de los vídeos de youtube<br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Habilitado el botón de pantalla completa para youtube<br />";
         Message += "<br />";
 
-        Message += "<strong>0.2.4</strong><br />";
+        Message += "<strong>0.2.4</strong> (alfa) <br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Reproducción de vídeos de youtube<br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Mostrando imagen de cabecera y titulo en la ventana de lectura<br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Desvanecimiento de la transparencia en la barra de herramientas de la ventana de lectura<br />";
         Message += "<br />";
 
-        Message += "<strong>0.1.3</strong><br />";
+        Message += "<strong>0.1.3</strong> (alfa) <br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Añadido historial de actualizaciones<br/>";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Añadido icono para poder copiar el link de la noticia<br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Barra de herramientas transarente al mostrar la noticia y gradualmente haciéndose mas opaca con el desplazamiento<br />";
@@ -251,7 +265,7 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Cambiados los iconos para compartir y abrir en el explorador<br />";
         Message += "<br />";
 
-        Message += "<strong>0.0.1</strong><br />";
+        Message += "<strong>0.0.1</strong> (alfa) <br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Versión base<br />";
 
         ScrollView LogScroll = new ScrollView(this);
