@@ -6,6 +6,9 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.net.Uri;
 
@@ -25,6 +28,17 @@ public class Utils
     {
         int ResourceId = Context.getResources().getIdentifier(Orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_height_landscape", "dimen", "android");
         return ResourceId > 0 ? Context.getResources().getDimensionPixelSize(ResourceId) : 0;
+    }
+
+    public static Point GetScreenDimensions(Context Context)
+    {
+        WindowManager wm = (WindowManager) Context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+
+        Point size = new Point();
+        display.getSize(size);
+
+        return size;
     }
 
     public static void GoToURL(String URL, Context Context)

@@ -191,7 +191,7 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(this);
 
 
-        String Message = "<strong>Versión</strong>: 0.2.6 (beta)<br />";
+        String Message = "<strong>Versión</strong>: 0.4.7 (RC 1)<br />";
         Message += "Andrei Jianu<br /><br />";
 
         Message += "<strong>Disclaimer</strong>: Esta es una aplicación no oficial desarrollada por un lector de la web del <a href=\"https://elchapuzasinformatico.com\">chapuzasinformatico</a>. ";
@@ -236,7 +236,13 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;<strong>z</strong>: Corrección de fallos<br />";
         Message += "<br />";
 
-        Message += "<strong>0.2.6</strong> (beta) <br />";
+        Message += "<strong>0.4.7</strong> (RC 1) <br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Animando la vista para los vídeos de Youtube<br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Simplificada la vista de búsqueda<br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Arreglado el código de versión<br />";
+        Message += "<br />";
+
+        Message += "<strong>0.3.6</strong> (beta) <br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Implementada la busqueda<br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Quitado código redundante<br />";
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Algunas correcciones ortográficas<br />";

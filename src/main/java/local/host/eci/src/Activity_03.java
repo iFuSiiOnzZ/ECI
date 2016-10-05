@@ -3,13 +3,13 @@ package local.host.eci.src;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.text.Html;
 import android.view.View;
 
+import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -133,9 +133,8 @@ public class Activity_03 extends AppCompatActivity implements OnScrollViewListen
     {
         if(v.getId() == 1024)
         {
-            findViewById(R.id.ytb_frame).setVisibility(View.VISIBLE);
-            String YtbID = (String) v.getTag();
-            m_YoutubePlayer.Play(YtbID);
+            m_YoutubePlayer.Play((String) v.getTag());
+            ShowAnimation(findViewById(R.id.ytb_frame));
         }
     }
 
@@ -149,11 +148,33 @@ public class Activity_03 extends AppCompatActivity implements OnScrollViewListen
     {
         if (KeyCode == KeyEvent.KEYCODE_BACK && findViewById(R.id.ytb_frame).getVisibility() == View.VISIBLE)
         {
-            findViewById(R.id.ytb_frame).setVisibility(View.GONE);
             m_YoutubePlayer.Pause();
+            HideAnimation(findViewById(R.id.ytb_frame));
             return true;
         }
 
         return super.onKeyDown(KeyCode, Event);
+    }
+
+    private void ShowAnimation(View view)
+    {
+        int ScreenHeight = Utils.GetScreenDimensions(this).y;
+
+        TranslateAnimation animate = new TranslateAnimation(0, 0, ScreenHeight,  0);
+        animate.setDuration(500);
+
+        view.startAnimation(animate);
+        view.setVisibility(View.VISIBLE);
+    }
+
+    private void HideAnimation(View view)
+    {
+        int ScreenHeight = Utils.GetScreenDimensions(this).y;
+
+        TranslateAnimation animate = new TranslateAnimation(0, 0, 0, ScreenHeight);
+        animate.setDuration(500);
+
+        view.startAnimation(animate);
+        view.setVisibility(View.GONE);
     }
 }

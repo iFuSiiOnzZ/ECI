@@ -1,8 +1,8 @@
 package local.host.eci.src.Interface.AsyncTask;
 
+import android.support.v7.widget.RecyclerView;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -15,8 +15,9 @@ import org.json.JSONObject;
 
 import local.host.eci.src.Data.NewsExcerpt;
 import local.host.eci.src.Data.Constants;
+
 import local.host.eci.src.Interface.Listener.OnClickListenerRecycleView;
-import local.host.eci.src.Interface.View.Adapter.ExcerptAdapter;
+import local.host.eci.src.Interface.View.Adapter.SearchAdapter;
 import local.host.eci.src.Utils.Network;
 
 
@@ -58,7 +59,7 @@ public class GetSearchQuery extends AsyncTask<String, Void, ArrayList<NewsExcerp
 
     @Override protected void onPostExecute(ArrayList<NewsExcerpt> Result)
     {
-        ExcerptAdapter Adapter = new ExcerptAdapter(Result);
+        SearchAdapter Adapter = new SearchAdapter(Result);
         OnClickListenerRecycleView Click = new OnClickListenerRecycleView(m_Context, Adapter);
 
         m_RecyclerView.setAdapter(Adapter);
