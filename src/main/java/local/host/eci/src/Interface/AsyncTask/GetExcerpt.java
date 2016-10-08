@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -91,7 +92,6 @@ public class GetExcerpt extends AsyncTask<Integer, Void, ArrayList<NewsExcerpt>>
             {
                 e.printStackTrace();
             }
-
         }
     }
 }

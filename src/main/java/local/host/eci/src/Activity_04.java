@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -25,7 +26,10 @@ public class Activity_04 extends AppCompatActivity implements Runnable
         RecyclerView DataView = (RecyclerView) findViewById(R.id.lyt_news_view);
 
         ToolBar.setPadding(0, Utils.GetStatusBarHeight(this), 0, 0);
-        setSupportActionBar(ToolBar); getSupportActionBar().setTitle(getIntent().getStringExtra("SEARCH_QUERY"));
+        setSupportActionBar(ToolBar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getIntent().getStringExtra("SEARCH_QUERY"));
 
         DataView.setAdapter(new ExcerptAdapter(null));
         DataView.setLayoutManager(new LinearLayoutManager(this));
@@ -47,5 +51,16 @@ public class Activity_04 extends AppCompatActivity implements Runnable
 
         final ProgressBar ProgessBar = (ProgressBar) findViewById(R.id.lyt_progess);
         runOnUiThread(new Runnable() { @Override public void run() { ProgessBar.setVisibility(View.GONE); }});
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem Item)
+    {
+        if (Item.getItemId() == android.R.id.home)
+        {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(Item);
     }
 }

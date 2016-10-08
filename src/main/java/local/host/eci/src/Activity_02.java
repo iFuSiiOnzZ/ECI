@@ -58,11 +58,6 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
 
     @Override public void onClick(View v)
     {
-        if(v.getId() == R.id.lyt_page_indicator)
-        {
-            m_SView.setQueryHint("p:<pagina>   Ejemplo -> p:2");
-            m_SView.setIconified(false);
-        }
     }
 
     @Override public boolean onQueryTextSubmit(String query)
@@ -71,24 +66,17 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         m_SView.setIconified(true);
         m_SView.onActionViewCollapsed();
 
-        if(query.startsWith("p:"))
+        if(query.length() < 3)
         {
-            String nVal = query.substring(2).trim();
-            if(!isNumber(nVal)) return false;
-
-            int i = Integer.valueOf(nVal).intValue() - 1;
-            if(i < 0) i = 0;
-
-            ((ViewPager) findViewById(R.id.lyt_news_pager)).setCurrentItem(i, true);
+            Toast.makeText(this, getString(R.string.toast_minsearch_length), Toast.LENGTH_SHORT).show();
+            return false;
         }
-        else
-        {
-            Intent SearchIntent = new Intent(this, Activity_04.class);
-            String QuerySearch = query.trim();
 
-            SearchIntent.putExtra("SEARCH_QUERY", QuerySearch);
-            startActivity(SearchIntent);
-        }
+        Intent SearchIntent = new Intent(this, Activity_04.class);
+        String QuerySearch = query.trim();
+
+        SearchIntent.putExtra("SEARCH_QUERY", QuerySearch);
+        startActivity(SearchIntent);
 
         return false;
     }
@@ -191,7 +179,7 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(this);
 
 
-        String Message = "<strong>Versión</strong>: 0.4.7 (RC 1)<br />";
+        String Message = "<strong>Versión</strong>: 1.0.0<br />";
         Message += "Andrei Jianu<br /><br />";
 
         Message += "<strong>Disclaimer</strong>: Esta es una aplicación no oficial desarrollada por un lector de la web del <a href=\"https://elchapuzasinformatico.com\">chapuzasinformatico</a>. ";
@@ -236,43 +224,11 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
         Message += "&nbsp;&nbsp;&nbsp;&nbsp;<strong>z</strong>: Corrección de fallos<br />";
         Message += "<br />";
 
-        Message += "<strong>0.4.7</strong> (RC 1) <br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Animando la vista para los vídeos de Youtube<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Simplificada la vista de búsqueda<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Arreglado el código de versión<br />";
+        Message += "<strong>1.0.0</strong><br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Sistema de búsqueda<br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Reproducción vídeos Youtube<br />";
+        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Compartir, abrir en nagegador<br />";
         Message += "<br />";
-
-        Message += "<strong>0.3.6</strong> (beta) <br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Implementada la busqueda<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Quitado código redundante<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Algunas correcciones ortográficas<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Mejoras en el control de la transparencia de barra de tareas<br />";
-        Message += "<br />";
-
-        Message += "<strong>0.2.5</strong> (beta) <br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Mejoras en la leyenda<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Algunas correcciones ortográficas<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Mejorada la visualización de los vídeos de youtube<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Habilitado el botón de pantalla completa para youtube<br />";
-        Message += "<br />";
-
-        Message += "<strong>0.2.4</strong> (alfa) <br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Reproducción de vídeos de youtube<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Mostrando imagen de cabecera y titulo en la ventana de lectura<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Desvanecimiento de la transparencia en la barra de herramientas de la ventana de lectura<br />";
-        Message += "<br />";
-
-        Message += "<strong>0.1.3</strong> (alfa) <br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Añadido historial de actualizaciones<br/>";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Añadido icono para poder copiar el link de la noticia<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Barra de herramientas transarente al mostrar la noticia y gradualmente haciéndose mas opaca con el desplazamiento<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Precarga de las miniaturas de los posts<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Mejoras de espacio para la carga de imágenes en memoria<br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;# Cambiados los iconos para compartir y abrir en el explorador<br />";
-        Message += "<br />";
-
-        Message += "<strong>0.0.1</strong> (alfa) <br />";
-        Message += "&nbsp;&nbsp;&nbsp;&nbsp;* Versión base<br />";
 
         ScrollView LogScroll = new ScrollView(this);
         LogScroll.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));

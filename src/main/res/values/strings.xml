@@ -7,9 +7,9 @@
     <string name="comments_lcs">comentario</string>
 
     <!-- Acvitivy -->
-    <string name="activity_01_toolbar">ElChapuzasInformatico</string>
-    <string name="activity_02_toolbar">ElChapuzasInformatico</string>
-    <string name="activity_03_toolbar">ElChapuzasInformatico</string>
+    <string name="activity_01_toolbar">El Chapuzas Informático</string>
+    <string name="activity_02_toolbar">El Chapuzas Informático</string>
+    <string name="activity_03_toolbar">El Chapuzas Informático</string>
 
     <!-- Manifest -->
     <string name="manifest_activity_01_label">@string/app_name</string>
@@ -33,5 +33,6 @@
     <string name="toas_url2clipboard">URL copiada al portapapeles</string>
     <string name="toast_backpress_exit">Pulse otra vez para salir</string>
     <string name="toast_no_internet">No ha detectado ninguna conexión a Internet</string>
+    <string name="toast_minsearch_length">La longitud mínima del texto es de 3 caracteres</string>
 
 </resources>

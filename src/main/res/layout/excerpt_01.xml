@@ -56,7 +56,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"/>
 
-
             <TextView
                 android:textSize="12sp"
                 android:id="@+id/excerpt_category"
@@ -67,6 +66,7 @@
 
             <TextView
                 android:textSize="12sp"
+                android:visibility="gone"
                 android:id="@+id/excerpt_ncomments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
