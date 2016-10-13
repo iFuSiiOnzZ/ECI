@@ -1,15 +1,15 @@
 <resources>
     <!-- App name -->
-    <string name="app_name">ElChapuzasInformatico</string>
+    <string name="app_name">wpReader</string>
 
     <!-- Layout -->
     <string name="comments_lcp">comentarios</string>
     <string name="comments_lcs">comentario</string>
 
     <!-- Acvitivy -->
-    <string name="activity_01_toolbar">El Chapuzas Informático</string>
-    <string name="activity_02_toolbar">El Chapuzas Informático</string>
-    <string name="activity_03_toolbar">El Chapuzas Informático</string>
+    <string name="activity_01_toolbar"></string>
+    <string name="activity_02_toolbar"></string>
+    <string name="activity_03_toolbar"></string>
 
     <!-- Manifest -->
     <string name="manifest_activity_01_label">@string/app_name</string>
@@ -21,6 +21,7 @@
     <string name="menu_search">Buscar</string>
     <string name="menu_about">Acerca de</string>
     <string name="menu_updates">Actualizaciones</string>
+    <string name="menu_settings">Ajustes</string>
 
     <!-- Buttons -->
     <string name="button_accept">Aceptar</string>

@@ -12,7 +12,7 @@ android
 
     defaultConfig
     {
-        applicationId "local.host.eci"
+        applicationId "eu.ifusiionzz.eci"
         versionName "1.0.0"
 
         targetSdkVersion 24
