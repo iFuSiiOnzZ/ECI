@@ -25,7 +25,7 @@
 
         </LinearLayout>
 
-        <eu.ifussionzz.eci.Interface.View.WebImageView
+        <eu.ifussionzz.wpReader.Interface.View.WebImageView
             android:background="@drawable/no_image"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"

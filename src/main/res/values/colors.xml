@@ -5,10 +5,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- -->
+    <color name="white">#FFFFFFFF</color>
+
     <!-- Toolbar -->
     <color name="colorPrimaryTransparent">#803F51B5</color>
 
-
     <!-- Drawables -->
     <color name="drawable_page_indicator">#A0000000</color>
+
+    <!-- Drawer -->
+    <color name="drawer">#353438</color>
+    <color name="drawer_text">#FFFFFF</color>
+    <color name="drawer_selected">#565656</color>
+    <color name="drawer_not_selected">#353438</color>
 </resources>

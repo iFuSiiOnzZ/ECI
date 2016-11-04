@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical">
 
-    <eu.ifussionzz.eci.Interface.View.ScrollView
+    <eu.ifussionzz.wpReader.Interface.View.ScrollView
         android:background="@android:color/white"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_height="125pt"
                 android:layout_width="match_parent">
 
-                <eu.ifussionzz.eci.Interface.View.WebImageView
+                <eu.ifussionzz.wpReader.Interface.View.WebImageView
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
                     android:id="@+id/lyt_img_header"
@@ -52,7 +52,7 @@
 
         </RelativeLayout>
 
-    </eu.ifussionzz.eci.Interface.View.ScrollView>
+    </eu.ifussionzz.wpReader.Interface.View.ScrollView>
 
     <android.support.v7.widget.Toolbar
         android:background="@color/colorPrimary"

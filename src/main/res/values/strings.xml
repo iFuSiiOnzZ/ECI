@@ -23,6 +23,10 @@
     <string name="menu_updates">Actualizaciones</string>
     <string name="menu_settings">Ajustes</string>
 
+    <!-- Drawer -->
+    <string name="open">Abrir</string>
+    <string name="close">Cerrar</string>
+
     <!-- Buttons -->
     <string name="button_accept">Aceptar</string>
     <string name="button_cancel">Cancelar</string>
