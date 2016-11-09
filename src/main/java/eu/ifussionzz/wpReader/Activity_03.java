@@ -3,12 +3,14 @@ package eu.ifussionzz.wpReader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.text.Html;
 import android.view.View;
 
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.LinearLayout;

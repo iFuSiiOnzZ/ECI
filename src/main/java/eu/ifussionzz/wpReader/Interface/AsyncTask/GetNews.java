@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -112,6 +113,12 @@ public class GetNews extends AsyncTask<Integer, Void, Vector<NewsDetails>>
         {
             String vId = matcher.group(1);
             if(!YtbVideos.contains(vId)) YtbVideos.add(vId);
+        }
+
+        for(int i = 0; i < Result.size() &&  Result.get(i).OtherFields.PostVideos != null; ++i) for(int j = 0; j < Result.get(i).OtherFields.PostVideos.size(); ++j)
+        {
+            matcher = pattern.matcher(Result.get(i).OtherFields.PostVideos.get(j));
+            if(matcher.find() && !YtbVideos.contains(matcher.group(1))) YtbVideos.add(matcher.group(1));
         }
 
         LinearLayout MainContainer = (LinearLayout) ((Activity) m_Context).findViewById(R.id.lyt_news_details);

@@ -16,4 +16,7 @@ public class NewsDetails implements Serializable
 
     @SerializedName("content")
     public String   m_Content = null;
+
+    @SerializedName("custom_fields")
+    public CustomFields OtherFields = null;
 }

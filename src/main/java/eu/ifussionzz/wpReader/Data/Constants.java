@@ -22,7 +22,7 @@ public class Constants
 
     public static String GetPost(int PostId, int PageNum)
     {
-        return BASE_URL + "?json=core.get_post&post_id=" + PostId + "&page=" + PageNum + "&include=url,title,content,comments";
+        return BASE_URL + "?json=core.get_post&post_id=" + PostId + "&page=" + PageNum + "&include=url,title,content,comments,custom_fields";
     }
 
     public static String GetSearch(String Query)

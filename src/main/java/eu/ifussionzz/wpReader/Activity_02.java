@@ -267,6 +267,9 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
 
         getSupportActionBar().setTitle(m_DrawerItems.get(p).Name);
         m_DrawerLayout.closeDrawers();
+
+        TextView PageIndicator = (TextView) findViewById(R.id.lyt_page_number);
+        PageIndicator.setText("" + 1);
     }
 
     @Override public void onItemLongClick(View v, int p)
