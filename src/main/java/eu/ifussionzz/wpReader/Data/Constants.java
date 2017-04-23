@@ -5,19 +5,15 @@ public class Constants
     public static String CACHE_PATH = "";
     public static String BASE_URL = "";
 
-    public static String GetRecentPosts(int NumPost)
-    {
-        return BASE_URL + "?json=core.get_recent_posts&include=title,excerpt,date,comment_count,thumbnail,categories,url&count=" + NumPost;
-    }
-
-    public static String GetCategories()
-    {
-        return BASE_URL + "?json=core.get_category_index";
-    }
-
     public static String GetPostFromPage(int Page)
     {
-        return BASE_URL + "?json=core.get_posts&include=title,excerpt,date,comment_count,thumbnail,categories,url&page=" + Page;
+        //return BASE_URL + "?json=core.get_posts&include=title,excerpt,date,comment_count,thumbnail,categories,url&page=" + Page;
+        return BASE_URL + "/wp-json/wp/v2/posts?page=" + Page + "&per_page=22";
+    }
+
+    public static String GetMediaData(int MediaID)
+    {
+        return BASE_URL + "/wp-json/wp/v2/media/" + MediaID;
     }
 
     public static String GetPost(int PostId, int PageNum)

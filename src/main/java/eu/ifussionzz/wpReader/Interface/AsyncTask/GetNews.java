@@ -99,32 +99,28 @@ public class GetNews extends AsyncTask<Integer, Void, Vector<NewsDetails>>
         if(Result.size() == 0) return;
 
         StringBuilder StringBuilder = new StringBuilder();
-        ArrayList<String> YtbVideos = new ArrayList<>();
+        for(int i = 0; i < Result.size(); i++) StringBuilder.append(Result.get(i).m_Content);
 
-        for(int i = 0; i < Result.size(); i++)
-        {
-            StringBuilder.append(Result.get(i).m_Content);
-        }
+        displayData(StringBuilder.toString());
+    }
 
+    public void displayData(String News)
+    {
         Pattern pattern = Pattern.compile("(?:youtube(?:-nocookie)?\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([a-zA-Z0-9_-]{11})");
-        Matcher matcher = pattern.matcher(StringBuilder.toString());
+        Matcher matcher = pattern.matcher(News);
+
+        ArrayList<String> YtbVideos = new ArrayList<>();
 
         while(matcher.find())
         {
             String vId = matcher.group(1);
-            if(!YtbVideos.contains(vId)) YtbVideos.add(vId);
-        }
-
-        for(int i = 0; i < Result.size() &&  Result.get(i).OtherFields.PostVideos != null; ++i) for(int j = 0; j < Result.get(i).OtherFields.PostVideos.size(); ++j)
-        {
-            matcher = pattern.matcher(Result.get(i).OtherFields.PostVideos.get(j));
-            if(matcher.find() && !YtbVideos.contains(matcher.group(1))) YtbVideos.add(matcher.group(1));
+            if (!YtbVideos.contains(vId)) YtbVideos.add(vId);
         }
 
         LinearLayout MainContainer = (LinearLayout) ((Activity) m_Context).findViewById(R.id.lyt_news_details);
         TextView PostText = new TextView(m_Context); PostText.setPadding(16, 16, 16, 0);
 
-        PostText.setText(Html.fromHtml(StringBuilder.toString(), new HTMLImageGetter(PostText, m_Context), new ExtraHTMLTags()));
+        PostText.setText(Html.fromHtml(News, new HTMLImageGetter(PostText, m_Context), new ExtraHTMLTags()));
         PostText.setMovementMethod(LinkMovementMethod.getInstance());
 
         ////

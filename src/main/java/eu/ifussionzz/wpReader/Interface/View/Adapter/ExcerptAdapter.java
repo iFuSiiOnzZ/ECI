@@ -11,7 +11,7 @@ import android.text.Html;
 
 import eu.ifussionzz.wpReader.Interface.Listener.OnClickListenerInterface;
 import eu.ifussionzz.wpReader.Interface.View.Holder.ExcerptHolder;
-import eu.ifussionzz.wpReader.Data.NewsExcerpt;
+import eu.ifussionzz.wpReader.Data.Excerpt.NewsExcerpt;
 import eu.ifussionzz.wpReader.Activity_03;
 import local.host.eci.R;
 
@@ -42,17 +42,17 @@ public class ExcerptAdapter extends RecyclerView.Adapter<ExcerptHolder> implemen
         NewsExcerpt NewsExcerpt = m_NewsExcerpt.get(position);
         holder.Image.setImageDrawable(null);
 
-        holder.Title.setText(Html.fromHtml(NewsExcerpt.Title));
-        holder.Description.setText(Html.fromHtml(NewsExcerpt.Excerpt));
+        holder.Title.setText(Html.fromHtml(NewsExcerpt.title.rendered));
+        holder.Description.setText(Html.fromHtml(NewsExcerpt.excerpt.rendered));
 
-        holder.Time.setText(NewsExcerpt.Date);
-        holder.Category.setText(NewsExcerpt.Categories.get(0).Title);
+        holder.Time.setText(NewsExcerpt.date);
+        //holder.Category.setText(NewsExcerpt.Categories.get(0).Title);
 
-        String ComentsText = m_Context.getString(R.string.comments_lcp);
+        /*String ComentsText = m_Context.getString(R.string.comments_lcp);
         if(NewsExcerpt.NumComments == 1) ComentsText = m_Context.getString(R.string.comments_lcs);
+        holder.Comments.setText(NewsExcerpt.NumComments + " " + ComentsText);*/
 
-        holder.Comments.setText(NewsExcerpt.NumComments + " " + ComentsText);
-        if(NewsExcerpt.Thumbnail != null) holder.Image.SetURL(NewsExcerpt.Thumbnail);
+        if(NewsExcerpt.thumbnail != null) holder.Image.SetURL(NewsExcerpt.thumbnail);
     }
 
     @Override public int getItemCount()
@@ -65,12 +65,14 @@ public class ExcerptAdapter extends RecyclerView.Adapter<ExcerptHolder> implemen
         if(m_NewsExcerpt == null || p >= m_NewsExcerpt.size()) return;
         Intent Activity_03 = new Intent(m_Context, Activity_03.class);
 
-        if( m_NewsExcerpt.get(p).Images.Medium != null) Activity_03.putExtra("THUMBNAIL", m_NewsExcerpt.get(p).Images.Medium.URL);
+        if( m_NewsExcerpt.get(p).thumbnail != null) Activity_03.putExtra("THUMBNAIL", m_NewsExcerpt.get(p).thumbnail);
         else Activity_03.putExtra("THUMBNAIL", "");
 
-        Activity_03.putExtra("TITLE", m_NewsExcerpt.get(p).Title);
-        Activity_03.putExtra("URL", m_NewsExcerpt.get(p).Url);
-        Activity_03.putExtra("ID", m_NewsExcerpt.get(p).Id);
+        Activity_03.putExtra("CONTENT", m_NewsExcerpt.get(p).content.rendered);
+        Activity_03.putExtra("TITLE", m_NewsExcerpt.get(p).title.rendered);
+
+        Activity_03.putExtra("URL", m_NewsExcerpt.get(p).link);
+        Activity_03.putExtra("ID", m_NewsExcerpt.get(p).id);
 
         m_Context.startActivity(Activity_03);
     }

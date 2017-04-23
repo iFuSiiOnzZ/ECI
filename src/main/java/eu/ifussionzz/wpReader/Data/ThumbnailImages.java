@@ -19,4 +19,7 @@ public class ThumbnailImages implements Serializable
 
     @SerializedName("popular_posts_img")
     public ImageData PopularPostsImg = null;
+
+    @SerializedName("medium_large")
+    public ImageData MediumLarge = null;
 }

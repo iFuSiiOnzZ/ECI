@@ -109,7 +109,9 @@ public class Activity_03 extends AppCompatActivity implements OnScrollViewListen
         LinearLayout ContainerLayout = (LinearLayout) findViewById(R.id.lyt_news_details);
         ContainerLayout.setLayoutParams(LayoutParams);
 
-        new GetNews(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getIntent().getIntExtra("ID", -1));
+        //new GetNews(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getIntent().getIntExtra("ID", -1));
+
+        new GetNews(this).displayData(getIntent().getStringExtra("CONTENT"));
         m_PostLoaded = true;
     }
 

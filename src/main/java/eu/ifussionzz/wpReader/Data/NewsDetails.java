@@ -3,6 +3,8 @@ package eu.ifussionzz.wpReader.Data;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
+import eu.ifussionzz.wpReader.Data.Links.Links;
+
 public class NewsDetails implements Serializable
 {
     @SerializedName("id")
