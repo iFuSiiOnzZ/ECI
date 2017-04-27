@@ -1,5 +1,6 @@
 package eu.ifussionzz.wpReader.Interface.View.Adapter;
 
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 
 import android.content.Context;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import android.text.Html;
 
+import eu.ifussionzz.wpReader.Interface.AsyncTask.LoadImageAsync;
 import eu.ifussionzz.wpReader.Interface.Listener.OnClickListenerInterface;
 import eu.ifussionzz.wpReader.Interface.View.Holder.ExcerptHolder;
 import eu.ifussionzz.wpReader.Data.Excerpt.NewsExcerpt;
@@ -52,7 +54,7 @@ public class ExcerptAdapter extends RecyclerView.Adapter<ExcerptHolder> implemen
         if(NewsExcerpt.NumComments == 1) ComentsText = m_Context.getString(R.string.comments_lcs);
         holder.Comments.setText(NewsExcerpt.NumComments + " " + ComentsText);*/
 
-        if(NewsExcerpt.thumbnail != null) holder.Image.SetURL(NewsExcerpt.thumbnail);
+        new LoadImageAsync(holder.Image, NewsExcerpt).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override public int getItemCount()

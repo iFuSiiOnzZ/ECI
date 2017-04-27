@@ -73,6 +73,8 @@ public class Activity_02 extends AppCompatActivity implements ViewPager.OnPageCh
 
         m_DrawerItems.add(new DrawerItem("", "", null));
         //m_DrawerItems.add(new DrawerItem("AlwaysFromKeyboard", "http://www.alwaysfromkeyboard.es/", "http://www.alwaysfromkeyboard.es/wp-content/uploads/2016/09/logopeque3.png"));
+
+        m_DrawerItems.add(new DrawerItem("SomosXbox", "http://www.somosxbox.com/", "http://www.somosxbox.com/wp-content/uploads/2014/06/logoweb.jpg"));
         m_DrawerItems.add(new DrawerItem("ElChapuzasInformatico", "https://elchapuzasinformatico.com/", "https://elchapuzasinformatico.com/wp-content/uploads/2015/05/logo_el_chapuzas5.png"));
 
         Constants.BASE_URL = m_DrawerItems.get(1).URL;

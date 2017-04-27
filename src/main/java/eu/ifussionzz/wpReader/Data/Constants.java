@@ -8,7 +8,7 @@ public class Constants
     public static String GetPostFromPage(int Page)
     {
         //return BASE_URL + "?json=core.get_posts&include=title,excerpt,date,comment_count,thumbnail,categories,url&page=" + Page;
-        return BASE_URL + "/wp-json/wp/v2/posts?page=" + Page + "&per_page=22";
+        return BASE_URL + "/wp-json/wp/v2/posts?page=" + Page + "&per_page=10";
     }
 
     public static String GetMediaData(int MediaID)

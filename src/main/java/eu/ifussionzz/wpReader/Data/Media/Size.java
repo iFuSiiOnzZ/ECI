@@ -8,6 +8,9 @@ public class Size implements Serializable
     @SerializedName("thumbnail")
     public Thumbnail thumbnail;
 
+    @SerializedName("medium")
+    public Thumbnail medium;
+
     @SerializedName("post-thumbnail")
     public Thumbnail post_thumbnail;
 }
